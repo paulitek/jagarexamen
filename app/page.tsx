@@ -2,55 +2,53 @@
 import Link from 'next/link'
 import { modules } from '@/lib/courseData'
 
-export default function Home() {
-  const totalDuration = modules.reduce((acc, m) => {
-    const mins = parseInt(m.duration)
-    return acc + mins
-  }, 0)
+const BG = '#f2ede4'
+const CARD = '#ffffff'
+const DARK = '#1c1c1c'
+const MUTED = '#7a6f63'
+const BORDER = '#1c1c1c'
+const GREEN = '#2d5a3d'
+const GREEN_LIGHT = '#eaf3ec'
+const BROWN = '#7a4f2d'
+const BROWN_LIGHT = '#f5ede4'
 
-  const difficultyColor = (d: string) => {
-    if (d === 'Grundläggande') return '#6aaa6a'
-    if (d === 'Mellannivå') return '#d4a055'
-    return '#e06060'
-  }
+export default function Home() {
+  const totalDuration = modules.reduce((acc, m) => acc + parseInt(m.duration), 0)
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0d1a0d' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: BG }}>
 
       {/* NAV */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 50,
-        backgroundColor: 'rgba(13,26,13,0.92)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid #2d4d2d',
+        backgroundColor: BG,
+        borderBottom: `2px solid ${DARK}`,
         padding: '0 1.5rem',
       }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ fontSize: 26 }}>🎯</span>
-            <span style={{ fontFamily: 'Georgia, serif', fontSize: 20, fontWeight: 700, color: '#f5e8cc', letterSpacing: '-0.02em' }}>
-              JägarExamen<span style={{ color: '#b8843a' }}>Online</span>
+            <span style={{ fontSize: 24 }}>🎯</span>
+            <span style={{
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontSize: 20, fontWeight: 800, color: DARK, letterSpacing: '-0.02em',
+            }}>
+              Jägarexamen<span style={{ color: BROWN }}>Online</span>
             </span>
           </div>
-          <div style={{ display: 'flex', gap: 8 }}>
+          <div style={{ display: 'flex', gap: 10 }}>
             <Link href="/vilt" style={{
+              color: DARK, padding: '8px 18px', borderRadius: 100,
+              fontSize: 14, fontWeight: 600,
+              border: `2px solid ${DARK}`,
+              textDecoration: 'none',
               backgroundColor: 'transparent',
-              color: '#c8b896',
-              padding: '9px 18px',
-              borderRadius: 8,
-              fontSize: 14,
-              fontWeight: 600,
-              border: '1px solid #2d4d2d',
             }}>
               🦌 Viltuppslagsverk
             </Link>
             <Link href="/kurs" style={{
-              backgroundColor: '#7a5220',
-              color: '#fdf6e8',
-              padding: '9px 22px',
-              borderRadius: 8,
-              fontSize: 14,
-              fontWeight: 600,
+              backgroundColor: DARK, color: '#fff',
+              padding: '8px 22px', borderRadius: 100,
+              fontSize: 14, fontWeight: 600, textDecoration: 'none',
             }}>
               Börja kursen →
             </Link>
@@ -59,234 +57,254 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section style={{
-        background: 'linear-gradient(160deg, #0d1a0d 0%, #1a2e1a 60%, #243d24 100%)',
-        padding: '100px 1.5rem 80px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}>
-        {/* Background texture lines */}
+      <section style={{ padding: '80px 1.5rem 72px', backgroundColor: BG }}>
+        {/* Scrolling ticker */}
         <div style={{
-          position: 'absolute', inset: 0, opacity: 0.04,
-          backgroundImage: 'repeating-linear-gradient(0deg, #4e8a4e 0px, transparent 1px, transparent 60px)',
-          pointerEvents: 'none',
-        }} />
-
-        <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center', position: 'relative' }}>
+          overflow: 'hidden',
+          borderTop: `2px solid ${DARK}`,
+          borderBottom: `2px solid ${DARK}`,
+          padding: '12px 0',
+          marginBottom: 56,
+          backgroundColor: '#e8e0d4',
+        }}>
           <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            backgroundColor: 'rgba(184,132,58,0.15)',
-            border: '1px solid rgba(184,132,58,0.3)',
-            borderRadius: 9999, padding: '6px 16px',
-            fontSize: 13, fontWeight: 600, color: '#d4a055',
-            letterSpacing: '0.05em', textTransform: 'uppercase',
-            marginBottom: 28,
+            display: 'flex', gap: 48,
+            animation: 'marquee 20s linear infinite',
+            whiteSpace: 'nowrap',
+            fontSize: 13, fontWeight: 600, color: MUTED, letterSpacing: '0.05em',
           }}>
-            🌲 Godkänd av Jägarförbundets kursstruktur
+            {['🦌 Klövvilt', '🐺 Rovdjur', '🦆 Vattenfåglar', '🦃 Skogsfåglar', '🐇 Hardjur', '🎯 Jägarexamen', '🦌 Klövvilt', '🐺 Rovdjur', '🦆 Vattenfåglar', '🦃 Skogsfåglar', '🐇 Hardjur', '🎯 Jägarexamen'].map((t, i) => (
+              <span key={i}>{t}</span>
+            ))}
           </div>
+        </div>
 
+        <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
           <h1 style={{
-            fontFamily: 'Georgia, serif',
-            fontSize: 'clamp(2.2rem, 5vw, 3.8rem)',
-            fontWeight: 700,
-            color: '#f5e8cc',
-            lineHeight: 1.15,
-            marginBottom: 24,
-            letterSpacing: '-0.02em',
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: 'clamp(2.8rem, 6vw, 5rem)',
+            fontWeight: 900,
+            color: DARK,
+            lineHeight: 1.08,
+            marginBottom: 28,
+            letterSpacing: '-0.03em',
           }}>
             Klara jägarexamen<br />
-            <span style={{ color: '#6aaa6a' }}>med självförtroende</span>
+            <span style={{ color: GREEN }}>med självförtroende</span>
           </h1>
 
           <p style={{
             fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-            color: '#c8b896',
-            maxWidth: 560,
+            color: MUTED,
+            maxWidth: 540,
             margin: '0 auto 44px',
-            lineHeight: 1.7,
+            lineHeight: 1.75,
           }}>
-            Strukturerad teori om vilt, regler, vapenlära och etik — byggt för dig som vill förstå
-            helheten, inte bara pugga fraser.
+            Strukturerad teori om vilt, regler, vapenlära och etik — byggt
+            för dig som vill förstå helheten, inte bara pugga fraser.
           </p>
 
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 64 }}>
             <Link href="/kurs" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: 'linear-gradient(135deg, #7a5220, #9a6b2a)',
-              color: '#fdf6e8', padding: '14px 32px',
-              borderRadius: 10, fontSize: 16, fontWeight: 700,
-              boxShadow: '0 4px 20px rgba(122,82,32,0.4)',
-              transition: 'all 0.2s',
+              backgroundColor: DARK, color: '#fff',
+              padding: '14px 32px', borderRadius: 100,
+              fontSize: 16, fontWeight: 700, textDecoration: 'none',
             }}>
               🎯 Börja studera nu
             </Link>
-            <a href="#moduler" style={{
+            <Link href="/vilt" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: 'transparent',
-              color: '#f5e8cc', padding: '13px 31px',
-              borderRadius: 10, fontSize: 16, fontWeight: 600,
-              border: '1px solid #2d4d2d',
-              transition: 'all 0.2s',
+              backgroundColor: 'transparent', color: DARK,
+              padding: '13px 31px', borderRadius: 100,
+              fontSize: 16, fontWeight: 600, textDecoration: 'none',
+              border: `2px solid ${DARK}`,
             }}>
-              Se alla moduler ↓
-            </a>
+              🦌 Viltuppslagsverk
+            </Link>
           </div>
 
-          {/* Stats */}
-          <div style={{
-            display: 'flex', gap: 32, justifyContent: 'center',
-            marginTop: 56, flexWrap: 'wrap',
-          }}>
+          {/* Stats cards */}
+          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             {[
-              { value: `${modules.length}`, label: 'moduler' },
-              { value: `${totalDuration} min`, label: 'total studietid' },
-              { value: '100%', label: 'gratis att prova' },
+              { value: `${modules.length}`, label: 'Moduler', emoji: '📚' },
+              { value: `${totalDuration} min`, label: 'Studietid', emoji: '⏱' },
+              { value: '100%', label: 'Gratis att prova', emoji: '✅' },
             ].map(s => (
-              <div key={s.label} style={{ textAlign: 'center' }}>
-                <div style={{ fontSize: 28, fontWeight: 800, fontFamily: 'Georgia, serif', color: '#b8843a' }}>{s.value}</div>
-                <div style={{ fontSize: 13, color: '#8a7a60', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{s.label}</div>
+              <div key={s.label} style={{
+                backgroundColor: CARD,
+                border: `2px solid ${BORDER}`,
+                borderRadius: 20,
+                padding: '20px 28px',
+                textAlign: 'center',
+                minWidth: 140,
+              }}>
+                <div style={{ fontSize: 22, marginBottom: 4 }}>{s.emoji}</div>
+                <div style={{
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontSize: 26, fontWeight: 800, color: DARK,
+                }}>{s.value}</div>
+                <div style={{ fontSize: 12, color: MUTED, textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: 2 }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* MODULES GRID */}
-      <section id="moduler" style={{ padding: '80px 1.5rem', maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ marginBottom: 48, textAlign: 'center' }}>
-          <h2 style={{
-            fontFamily: 'Georgia, serif',
-            fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-            color: '#f5e8cc', marginBottom: 12,
+      {/* FEATURE CARDS (Happy Golfer style) */}
+      <section style={{ padding: '0 1.5rem 80px' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+            gap: 16,
           }}>
-            Kursens 8 moduler
-          </h2>
-          <p style={{ color: '#8a7a60', fontSize: 16 }}>
-            Gå igenom varje modul i ordning — eller hoppa direkt till det du vill fördjupa dig i.
-          </p>
-        </div>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: 20,
-        }}>
-          {modules.map((mod) => (
-            <Link key={mod.id} href={`/kurs/${mod.id}`} style={{ textDecoration: 'none' }}>
-              <div style={{
-                backgroundColor: '#1a2e1a',
-                border: '1px solid #2d4d2d',
-                borderRadius: 14,
-                padding: '24px 26px',
-                transition: 'all 0.25s ease',
-                cursor: 'pointer',
-                position: 'relative',
-                overflow: 'hidden',
-              }}
-                onMouseEnter={e => {
-                  const el = e.currentTarget as HTMLElement
-                  el.style.borderColor = '#4e8a4e'
-                  el.style.backgroundColor = '#1f351f'
-                  el.style.transform = 'translateY(-2px)'
-                  el.style.boxShadow = '0 8px 32px rgba(13,26,13,0.7)'
-                }}
-                onMouseLeave={e => {
-                  const el = e.currentTarget as HTMLElement
-                  el.style.borderColor = '#2d4d2d'
-                  el.style.backgroundColor = '#1a2e1a'
-                  el.style.transform = 'translateY(0)'
-                  el.style.boxShadow = 'none'
-                }}
-              >
-                {/* Module number */}
-                <div style={{
-                  position: 'absolute', top: 16, right: 20,
-                  fontSize: 13, color: '#4d6b4d', fontWeight: 700,
-                  letterSpacing: '0.05em',
-                }}>
-                  {String(mod.number).padStart(2, '0')}
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: 14 }}>
-                  <div style={{
-                    fontSize: 32, lineHeight: 1,
-                    backgroundColor: 'rgba(78,138,78,0.12)',
-                    borderRadius: 10, padding: '8px 10px',
-                    border: '1px solid rgba(78,138,78,0.2)',
-                  }}>
-                    {mod.emoji}
-                  </div>
-                  <div>
-                    <h3 style={{
-                      fontFamily: 'Georgia, serif',
-                      fontSize: 18, fontWeight: 700,
-                      color: '#f5e8cc', marginBottom: 4,
-                      lineHeight: 1.3,
-                    }}>
-                      {mod.title}
-                    </h3>
-                    <p style={{ fontSize: 13, color: '#8a7a60', lineHeight: 1.4 }}>
-                      {mod.subtitle}
-                    </p>
-                  </div>
-                </div>
-
-                <div style={{ borderTop: '1px solid #2d4d2d', paddingTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ display: 'flex', gap: 12 }}>
-                    <span style={{ fontSize: 12, color: '#6a8a6a' }}>⏱ {mod.duration}</span>
-                    <span style={{ fontSize: 12, color: '#6a8a6a' }}>📖 {mod.theory.sections.length} avsnitt</span>
-                  </div>
-                  <span style={{
-                    fontSize: 11, fontWeight: 700,
-                    color: difficultyColor(mod.difficulty),
-                    backgroundColor: `${difficultyColor(mod.difficulty)}22`,
-                    padding: '3px 9px', borderRadius: 9999,
-                    border: `1px solid ${difficultyColor(mod.difficulty)}44`,
-                    textTransform: 'uppercase', letterSpacing: '0.06em',
-                  }}>
-                    {mod.difficulty}
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* WHY SECTION */}
-      <section style={{
-        padding: '80px 1.5rem',
-        backgroundColor: '#132213',
-        borderTop: '1px solid #2d4d2d',
-        borderBottom: '1px solid #2d4d2d',
-      }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <h2 style={{
-            fontFamily: 'Georgia, serif',
-            fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
-            color: '#f5e8cc', textAlign: 'center', marginBottom: 48,
-          }}>
-            Varför JägarExamen Online?
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>
             {[
-              { icon: '📚', title: 'Djupare förståelse', text: 'Vi förklarar varför reglerna finns — inte bara vad de säger. Du förstår helheten.' },
-              { icon: '⏱', title: 'Studiera i din takt', text: 'Inga fasta tider. Läs när du vill, så länge du vill. Perfekt för dig med ett fullspäckat schema.' },
-              { icon: '🎯', title: 'Provfokuserat', text: 'Varje modul avslutas med quiz och scenarion direkt kopplade till examensfrågor.' },
-              { icon: '🌲', title: 'Byggt för jägarmän', text: 'Rak, respektfull ton utan onödigt fluff. Precis som det ska vara i skogen.' },
+              { icon: '📚', title: 'Djupare förståelse >', text: 'Vi förklarar varför reglerna finns — inte bara vad de säger. Du förstår helheten.' },
+              { icon: '⏱', title: 'Studiera i din takt >', text: 'Inga fasta tider. Läs när du vill, så länge du vill.' },
+              { icon: '🎯', title: 'Provfokuserat >', text: 'Varje modul avslutas med quiz kopplade direkt till examensfrågor.' },
+              { icon: '🦌', title: 'Viltuppslagsverk >', text: '39 djurarter med fullständig information om biologi, spår och jakt.' },
             ].map(f => (
               <div key={f.title} style={{
-                padding: '24px',
-                backgroundColor: '#1a2e1a',
-                border: '1px solid #2d4d2d',
-                borderRadius: 12,
+                backgroundColor: CARD,
+                border: `2px solid ${BORDER}`,
+                borderRadius: 20,
+                padding: '28px 24px',
               }}>
-                <div style={{ fontSize: 28, marginBottom: 12 }}>{f.icon}</div>
-                <h3 style={{ fontFamily: 'Georgia, serif', fontSize: 17, color: '#f5e8cc', marginBottom: 8 }}>{f.title}</h3>
-                <p style={{ fontSize: 14, color: '#8a7a60', lineHeight: 1.6 }}>{f.text}</p>
+                <div style={{ fontSize: 36, marginBottom: 16 }}>{f.icon}</div>
+                <h3 style={{
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                  fontSize: 20, fontWeight: 700, color: DARK, marginBottom: 10,
+                }}>{f.title}</h3>
+                <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.65 }}>{f.text}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* MODULES SECTION */}
+      <section id="moduler" style={{
+        padding: '80px 1.5rem',
+        backgroundColor: '#e8e0d4',
+        borderTop: `2px solid ${DARK}`,
+        borderBottom: `2px solid ${DARK}`,
+      }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <h2 style={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            fontWeight: 900, color: DARK,
+            textAlign: 'center', marginBottom: 12,
+          }}>
+            Kursens {modules.length} moduler
+          </h2>
+          <p style={{ color: MUTED, fontSize: 16, textAlign: 'center', marginBottom: 48 }}>
+            Gå igenom varje modul i ordning — eller hoppa direkt till det du vill fördjupa dig i.
+          </p>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: 16,
+          }}>
+            {modules.map((mod) => (
+              <Link key={mod.id} href={`/kurs/${mod.id}`} style={{ textDecoration: 'none' }}>
+                <div style={{
+                  backgroundColor: CARD,
+                  border: `2px solid ${BORDER}`,
+                  borderRadius: 20,
+                  padding: '24px',
+                  transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                  cursor: 'pointer',
+                }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.transform = 'translateY(-3px)'
+                    el.style.boxShadow = '0 8px 24px rgba(28,28,28,0.12)'
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLElement
+                    el.style.transform = 'translateY(0)'
+                    el.style.boxShadow = 'none'
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
+                    <div style={{
+                      fontSize: 32,
+                      backgroundColor: GREEN_LIGHT,
+                      borderRadius: 12, padding: '8px 10px',
+                      border: `1px solid ${GREEN}22`,
+                    }}>
+                      {mod.emoji}
+                    </div>
+                    <span style={{
+                      fontSize: 12, fontWeight: 700, color: MUTED,
+                      backgroundColor: '#f0e8dc',
+                      padding: '4px 10px', borderRadius: 100,
+                      border: '1px solid #c8b89a',
+                    }}>
+                      {String(mod.number).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <h3 style={{
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                    fontSize: 17, fontWeight: 700, color: DARK,
+                    marginBottom: 6, lineHeight: 1.3,
+                  }}>
+                    {mod.title}
+                  </h3>
+                  <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.5, marginBottom: 16 }}>
+                    {mod.subtitle}
+                  </p>
+
+                  <div style={{
+                    borderTop: '1px solid #e8e0d4', paddingTop: 14,
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  }}>
+                    <div style={{ display: 'flex', gap: 12 }}>
+                      <span style={{ fontSize: 12, color: MUTED }}>⏱ {mod.duration}</span>
+                      <span style={{ fontSize: 12, color: MUTED }}>📖 {mod.theory.sections.length} avsnitt</span>
+                    </div>
+                    <span style={{
+                      fontSize: 11, fontWeight: 600, color: GREEN,
+                      backgroundColor: GREEN_LIGHT,
+                      padding: '3px 10px', borderRadius: 100,
+                      border: `1px solid ${GREEN}44`,
+                    }}>
+                      {mod.difficulty}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA VILT */}
+      <section style={{ padding: '80px 1.5rem', backgroundColor: BG }}>
+        <div style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            fontWeight: 900, color: DARK, marginBottom: 16,
+          }}>
+            Allt vilt du behöver känna till
+          </h2>
+          <p style={{ color: MUTED, fontSize: 16, lineHeight: 1.7, marginBottom: 36 }}>
+            39 djurarter med fullständig fakta — biologi, habitat, jaktmetoder,
+            spårtecken och mycket mer. Perfekt för teoridelen om vilt.
+          </p>
+          <Link href="/vilt" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            backgroundColor: GREEN, color: '#fff',
+            padding: '14px 32px', borderRadius: 100,
+            fontSize: 16, fontWeight: 700, textDecoration: 'none',
+          }}>
+            🦌 Öppna viltuppslagsverket
+          </Link>
         </div>
       </section>
 
@@ -294,16 +312,28 @@ export default function Home() {
       <footer style={{
         padding: '40px 1.5rem',
         textAlign: 'center',
-        color: '#4d6b4d',
-        fontSize: 13,
-        borderTop: '1px solid #1f351f',
+        borderTop: `2px solid ${DARK}`,
+        backgroundColor: DARK,
+        color: '#c8b89a',
       }}>
-        <div style={{ fontFamily: 'Georgia, serif', fontSize: 16, color: '#6a8a6a', marginBottom: 8 }}>
-          🎯 JägarExamen<span style={{ color: '#7a5220' }}>Online</span>
+        <div style={{
+          fontFamily: "'Playfair Display', Georgia, serif",
+          fontSize: 18, fontWeight: 800, color: '#f2ede4', marginBottom: 10,
+        }}>
+          🎯 Jägarexamen<span style={{ color: '#d4a055' }}>Online</span>
         </div>
-        <p>Innehållet är baserat på Naturvårdsverkets och Svenska Jägareförbundets riktlinjer.</p>
-        <p style={{ marginTop: 4 }}>© 2025 JägarExamen Online</p>
+        <p style={{ fontSize: 13, color: '#8a7a60', maxWidth: 500, margin: '0 auto' }}>
+          Innehållet är baserat på Naturvårdsverkets och Svenska Jägareförbundets riktlinjer.
+        </p>
+        <p style={{ marginTop: 8, fontSize: 12, color: '#6a5a50' }}>© 2025 JägarExamen Online</p>
       </footer>
+
+      <style>{`
+        @keyframes marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   )
 }

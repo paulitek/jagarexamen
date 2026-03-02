@@ -2,62 +2,69 @@
 import Link from 'next/link'
 import { viltKategorier, allaVilt } from '@/lib/viltData'
 
+const BG = '#f2ede4'
+const DARK = '#1c1c1c'
+const MUTED = '#7a6f63'
+const BORDER = '#1c1c1c'
+const GREEN = '#2d5a3d'
+const CARD = '#ffffff'
+
 export default function ViltuppslagsverkPage() {
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#0d1a0d' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: BG }}>
       {/* NAV */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 50,
-        backgroundColor: 'rgba(13,26,13,0.92)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid #2d4d2d',
+        backgroundColor: BG,
+        borderBottom: `2px solid ${DARK}`,
         padding: '0 1.5rem',
       }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <span style={{ fontSize: 26 }}>🎯</span>
-            <span style={{ fontFamily: 'Georgia, serif', fontSize: 20, fontWeight: 700, color: '#f5e8cc', letterSpacing: '-0.02em' }}>
-              JägarExamen<span style={{ color: '#b8843a' }}>Online</span>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68 }}>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+            <span style={{ fontSize: 22 }}>🎯</span>
+            <span style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 18, fontWeight: 800, color: DARK }}>
+              Jägarexamen<span style={{ color: '#7a4f2d' }}>Online</span>
             </span>
           </Link>
-          <Link href="/kurs" style={{
-            backgroundColor: '#7a5220', color: '#fdf6e8',
-            padding: '9px 22px', borderRadius: 8, fontSize: 14, fontWeight: 600,
-          }}>
-            Kursen →
-          </Link>
+          <div style={{ display: 'flex', gap: 10 }}>
+            <Link href="/kurs" style={{
+              color: DARK, padding: '8px 18px', borderRadius: 100,
+              fontSize: 14, fontWeight: 600, border: `2px solid ${DARK}`,
+              textDecoration: 'none',
+            }}>
+              📚 Kursen
+            </Link>
+          </div>
         </div>
       </nav>
 
       {/* HERO */}
       <section style={{
-        background: 'linear-gradient(160deg, #0d1a0d 0%, #1a2e1a 60%, #243d24 100%)',
-        padding: '80px 1.5rem 60px',
+        padding: '72px 1.5rem 60px',
+        textAlign: 'center',
+        borderBottom: `2px solid ${DARK}`,
       }}>
-        <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            backgroundColor: 'rgba(184,132,58,0.15)',
-            border: '1px solid rgba(184,132,58,0.3)',
-            borderRadius: 9999, padding: '6px 16px',
-            fontSize: 13, fontWeight: 600, color: '#d4a055',
-            letterSpacing: '0.05em', textTransform: 'uppercase',
-            marginBottom: 24,
-          }}>
-            📖 Viltuppslagsverk
-          </div>
+        <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h1 style={{
-            fontFamily: 'Georgia, serif',
-            fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-            fontWeight: 700, color: '#f5e8cc',
-            lineHeight: 1.2, marginBottom: 20,
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: 'clamp(2.4rem, 5vw, 4rem)',
+            fontWeight: 900, color: DARK,
+            lineHeight: 1.1, marginBottom: 20,
           }}>
             Viltuppslagsverk
           </h1>
-          <p style={{ fontSize: 18, color: '#c8b896', maxWidth: 560, margin: '0 auto', lineHeight: 1.7 }}>
-            Djupgående information om alla relevanta viltarter i Sverige — utseende, beteende, ekologi och jakt.
+          <p style={{ fontSize: 18, color: MUTED, lineHeight: 1.7, marginBottom: 12 }}>
+            Djupgående information om alla relevanta viltarter i Sverige —
+            utseende, beteende, ekologi och jakt.
           </p>
-          <p style={{ marginTop: 12, fontSize: 14, color: '#6a8a6a' }}>
+          <p style={{
+            display: 'inline-block',
+            backgroundColor: CARD,
+            border: `2px solid ${DARK}`,
+            borderRadius: 100,
+            padding: '6px 20px',
+            fontSize: 14, fontWeight: 600, color: DARK,
+          }}>
             {allaVilt.length} arter dokumenterade
           </p>
         </div>
@@ -65,43 +72,49 @@ export default function ViltuppslagsverkPage() {
 
       {/* KATEGORIER */}
       <section style={{ padding: '60px 1.5rem', maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 24 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>
           {viltKategorier.map(kat => {
             const djurIKat = allaVilt.filter(v => v.kategoriId === kat.id)
             return (
               <Link key={kat.id} href={`/vilt/${kat.id}`} style={{ textDecoration: 'none' }}>
                 <div style={{
-                  backgroundColor: '#1a2e1a',
-                  border: '1px solid #2d4d2d',
-                  borderRadius: 14,
+                  backgroundColor: CARD,
+                  border: `2px solid ${BORDER}`,
+                  borderRadius: 20,
                   padding: '28px',
-                  transition: 'all 0.2s',
                   cursor: 'pointer',
+                  transition: 'transform 0.15s ease, box-shadow 0.15s ease',
                 }}
                   onMouseEnter={e => {
                     const el = e.currentTarget as HTMLElement
-                    el.style.borderColor = '#4e8a4e'
-                    el.style.transform = 'translateY(-2px)'
+                    el.style.transform = 'translateY(-3px)'
+                    el.style.boxShadow = '0 8px 24px rgba(28,28,28,0.1)'
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLElement
-                    el.style.borderColor = '#2d4d2d'
                     el.style.transform = 'translateY(0)'
+                    el.style.boxShadow = 'none'
                   }}
                 >
-                  <div style={{ fontSize: 40, marginBottom: 14 }}>{kat.emoji}</div>
+                  <div style={{ fontSize: 44, marginBottom: 16 }}>{kat.emoji}</div>
                   <h2 style={{
-                    fontFamily: 'Georgia, serif', fontSize: 22,
-                    color: '#f5e8cc', marginBottom: 10,
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                    fontSize: 22, fontWeight: 800, color: DARK, marginBottom: 10,
                   }}>
-                    {kat.namn}
+                    {kat.namn} &rsaquo;
                   </h2>
-                  <p style={{ fontSize: 14, color: '#8a7a60', lineHeight: 1.6, marginBottom: 16 }}>
+                  <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.65, marginBottom: 18 }}>
                     {kat.beskrivning}
                   </p>
-                  <div style={{ fontSize: 13, color: '#6aaa6a', fontWeight: 600 }}>
-                    {djurIKat.length} arter →
-                  </div>
+                  <span style={{
+                    display: 'inline-block',
+                    fontSize: 13, fontWeight: 600, color: GREEN,
+                    backgroundColor: '#eaf3ec',
+                    padding: '4px 14px', borderRadius: 100,
+                    border: `1px solid ${GREEN}44`,
+                  }}>
+                    {djurIKat.length} arter
+                  </span>
                 </div>
               </Link>
             )
@@ -109,7 +122,11 @@ export default function ViltuppslagsverkPage() {
         </div>
       </section>
 
-      <footer style={{ padding: '40px 1.5rem', textAlign: 'center', color: '#4d6b4d', fontSize: 13, borderTop: '1px solid #1f351f' }}>
+      <footer style={{
+        padding: '36px 1.5rem', textAlign: 'center',
+        borderTop: `2px solid ${DARK}`,
+        backgroundColor: DARK, color: '#8a7a60', fontSize: 13,
+      }}>
         <p>© 2025 JägarExamen Online</p>
       </footer>
     </div>
