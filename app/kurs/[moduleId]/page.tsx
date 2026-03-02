@@ -1,4 +1,3 @@
-'use client'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getModule, modules } from '@/lib/courseData'
