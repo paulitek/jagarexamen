@@ -1,0 +1,4 @@
+DJUR: Rådjur
+LATIN: Capreolus capreolus
+KATEGORI: klovvilt
+ID: radjur
