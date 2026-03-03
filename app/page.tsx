@@ -36,6 +36,15 @@ export default function Home() {
             </span>
           </div>
           <div style={{ display: 'flex', gap: 10 }}>
+            <Link href="/teori" style={{
+              color: DARK, padding: '8px 18px', borderRadius: 100,
+              fontSize: 14, fontWeight: 600,
+              border: `2px solid ${DARK}`,
+              textDecoration: 'none',
+              backgroundColor: 'transparent',
+            }}>
+              📖 Jaktteori
+            </Link>
             <Link href="/vilt" style={{
               color: DARK, padding: '8px 18px', borderRadius: 100,
               fontSize: 14, fontWeight: 600,
